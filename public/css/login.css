@@ -1,0 +1,57 @@
+body,p,form,input {
+  margin: 0;
+}
+#form {
+  width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #4eb4c2;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px #4eb4c2;
+}
+form p {
+  font-size: 14px;
+}
+.Login-Logo {
+  font-size: 40px;
+  text-align: center;
+  border-bottom: 2px solid #4eb4c2;
+  margin-bottom: 20px;
+}
+.submit {
+  text-align: right;
+}
+.button-login {
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4eb4c2;
+  color: #fff;
+  border: none;
+  padding: 8px;
+}
+.label-id,
+.label-pass {
+  font-size: 18px;
+}
+.id,
+.pass {
+  padding-bottom: 18px
+}
+.text-id,
+.text-pass {
+  font-size: 20px;
+  width: 70%;
+  height: 25px;
+}
+.div-create {
+  text-align: center;
+}
+.a-create {
+  color: #fff;
+  background: #4eb4c2;
+  padding: 10px 60px;
+  display: inline-block;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  text-decoration: none;
+}

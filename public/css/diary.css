@@ -1,0 +1,78 @@
+/* ヘッダー回り */
+header {
+  display: flex;
+  background-color: gray;
+  align-items: center;
+  padding: 0px 50px;
+  border: 1px solid;
+}
+.header-a {
+  background-color: #f0f0f0;
+  margin: 10px;
+  padding: 10px;
+}
+.header-account {
+
+  background-color: #f0f0f0;
+  margin: 15px;
+  padding: 10px;
+}
+.right-align {
+  margin-left: auto;
+}
+
+/* コンテンツ回り */
+main {
+  padding: 0px 50px;
+  background-color: antiquewhite;
+  display: flex;
+  margin: 10px;
+  border: 1px solid;
+}
+.main-container {
+  flex: 7;
+  align-items: center;
+  margin: 5px;
+  border: 1px solid;
+}
+.content-item{
+  margin: 15px 10px;
+  border: 1px solid;
+  border-radius: 10px;
+}
+.item-header {
+  display: flex;
+  border-bottom: 1px solid;
+  align-items: center;
+}
+.item-date {
+  margin: 10px;
+  font-size: 25px;
+}
+.item-weather {
+  margin-right: 15px;
+}
+.content-item p {
+  padding: 15px 10px;
+}
+
+/* サイドまわり */
+.side-container {
+  flex: 3;
+  align-items: center;
+  border: 1px solid;
+  margin: 5px;
+}
+.item-hash,
+.item-carender {
+  margin: 5px;
+}
+
+/* フッター回り */
+footer {
+  text-align: center;
+}
+footer a {
+  display: block;
+  margin: 10px;
+}
