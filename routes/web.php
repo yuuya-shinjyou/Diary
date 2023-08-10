@@ -22,5 +22,3 @@ Route::get('login',[GreetingController::class, 'greeting']);
 Route::post('diary',[GreetingController::class, 'posting']);
 Route::get('newcreate',fn()=>view("NewCreate"));
 Route::get('diary',fn()=>view("diary"));
-
-// tesut
