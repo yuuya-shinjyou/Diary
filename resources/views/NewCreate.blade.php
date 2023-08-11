@@ -15,7 +15,7 @@
           <label for="nickname">ニックネーム :</label>
         </div>
         <div class="right-container">
-          <input class="input-name" id="nickname" type="text">
+          <input class="input-text" id="nickname" type="text">
         </div>
       </div>
       <div class="row-container">
@@ -118,6 +118,14 @@
             <input class="input-publishing" type="radio" id="private" name="publishing" value="private" required>
             <label for="private">非公開</label>
           </div>
+        </div>
+      </div>
+      <div class="row-container">
+        <div class="left-container">
+          <label for="email">メールアドレス :</label>
+        </div>
+        <div class="right-container">
+          <input class="input-text" id="email" type="email">
         </div>
       </div>
       <div class="row-container">
