@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GreetingController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,4 @@ Route::get('diary',fn()=>view("diary"));
 // model
 Route::get('admin/blog/show',[BlogController::class,'index']);
 Route::get('admin/blog/create',[BlogController::class,'create']);
+Route::post('admin/blog/store',[UserController::class,'store'])->name('admin.user.store');

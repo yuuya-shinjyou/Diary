@@ -23,13 +23,16 @@ class BlogController extends Controller
         return view('NewCreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    //投稿処理
     public function store(Request $request)
     {
-        //
-    }
+        //publicディスクのblogsに保管
+        $imagePath = $request->file('image')->store('blogs','public');
+        $blog = new Blog($request->validated());
+        $blog->image = $imagePath;
+        $blog->save();
+    }   
+
 
     /**
      * Display the specified resource.

@@ -6,20 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    //投稿テーブル
     public function up(): void
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('nickname',50);
-            $table->enum('gender',['male','female','other']);
+            $table->integer('AccountNum');
             $table->string('avatar');
-            $table->string('todohuken', 100)->nullable()->default('text');
             $table->boolean('publishing')->default(false);
-            $table->string('email')->unique();
-            $table->string('password');
             $table->timestamps();
         });
     }
