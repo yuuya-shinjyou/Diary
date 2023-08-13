@@ -35,11 +35,11 @@
           </div>
           <div class="right-container">
             <div class="gender-button">
-              <input class="input-gender" type="radio" id="male" name="gender" value="male" required>
+              <input class="input-gender" type="radio" id="male" name="gender" value="male">
               <label for="male">男性</label>
-              <input class="input-gender" type="radio" id="female" name="gender" value="female" required>
+              <input class="input-gender" type="radio" id="female" name="gender" value="female">
               <label for="female">女性</label>
-              <input class="input-gender" type="radio" id="other" name="gender" value="other" required>
+              <input class="input-gender" type="radio" id="other" name="gender" value="other>
               <label for="other">その他</label>
             </div>
           </div>

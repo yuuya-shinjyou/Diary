@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreBlogRequest extends FormRequest
 {
@@ -33,7 +34,11 @@ class StoreBlogRequest extends FormRequest
             ],
             'todohuken' => 'required|string|in:' . implode(",",$prefectures),
             'publishing' => 'required|string|in:private,public',
-            'email' => 'required|email',    
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email'),
+            ],
             'password' => 'required|min:4',
         ];
     }
