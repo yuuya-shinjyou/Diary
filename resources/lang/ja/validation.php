@@ -121,7 +121,8 @@ return [
       'password' => 'パスワード',
       'todohuken' => '都道府県',
       'nickname' => 'ニックネーム',
-      'gender' => '性別'
+      'gender' => '性別',
+      'publishing' => '公開設定'
     ],
 
 ];
