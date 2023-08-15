@@ -57,8 +57,8 @@ class UserController extends Controller
 
             //重複があった場合追加せずにエラーメッセージを送る処理を追加する
             $users->save();
-    
-            return redirect('login');
+
+            return redirect('login')->with("success","登録が完了しました");
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             // バリデーションエラーが発生した場合、エラーメッセージをログに記録

@@ -55,3 +55,20 @@ form p {
   letter-spacing: 1px;
   text-decoration: none;
 }
+
+/* フラッシュメッセージ */
+.msg {
+  border-radius: 15px;
+  width: 250px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.msg.success i {
+  margin: 10px;
+}
+.success {
+  color: 	#3C763D;
+  background-color: #DFF0D8;
+}

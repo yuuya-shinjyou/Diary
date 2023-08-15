@@ -5,6 +5,18 @@
 @endsection
 @section('title','ログイン')
 @section('content')
+
+  {{-- フラッシュメッセージ --}}
+  {{-- @if (session('success'))
+    <div class="msg-success">
+      {{ session('success') }}
+    </div>
+  @endif --}}
+  <div class="msg success">
+    <i class="fa-solid fa-check"></i>
+    <p>登録が完了しました</p>
+  </div>
+
   <div id="form">
     <p class="Login-Logo">Login</p>
     <form action="diary" method="POST">
