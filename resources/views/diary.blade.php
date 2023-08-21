@@ -2,6 +2,7 @@
 
 @section('link')
   <link href="{{ asset('css/diary.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/flashMessage.css') }}" rel="stylesheet">
 @endsection
 
 @section('title','日記帳')
@@ -30,6 +31,15 @@
   </header>
 
   <main>
+{{-- 反応しない --}}
+    {{-- フラッシュメッセージ --}}
+    @if (session('success'))
+      <div class="flash-message success">
+        <i class="fa-solid fa-check"></i>
+        <p>{{ session('success') }}</p>
+      </div>
+    @endif
+
     <div class="main-container">
        @for($i=1; $i<=5; $i++) {{-- データの分だけ表示 --}}
         <div class="content-item">
@@ -63,5 +73,23 @@
   <footer>
     <a href="#">お問い合わせはこちら</a>
   </footer>
+@endsection
 
+@section('javascript')
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // フラッシュメッセージを取得
+        const flashMessage = document.querySelector(".flash-message");
+
+        // クラスを後付け
+        setTimeout(function() {
+          flashMessage.classList.add("fadeOut");
+        }, 4000);
+
+        // アニメーションが完了したらイベント開始
+        flashMessage.addEventListener("animationend", function() {
+          flashMessage.remove();
+        });
+    });
+  </script>  
 @endsection

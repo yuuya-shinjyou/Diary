@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GreetingController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 
@@ -20,8 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login',[GreetingController::class, 'greeting']);
-Route::post('diary',[GreetingController::class, 'posting']);
+Route::get('login',[LoginController::class, 'show']);
+Route::post('diary',[LoginController::class, 'loggedIn'])->name('user.loggedIn');
 Route::get('newcreate',[UserController::class, 'create']);
 Route::get('diary',fn()=>view("diary"));
 

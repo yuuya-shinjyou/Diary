@@ -12,7 +12,7 @@ body,p,form,input {
 form p {
   font-size: 14px;
 }
-.Login-Logo {
+.login-log {
   font-size: 40px;
   text-align: center;
   border-bottom: 2px solid #4eb4c2;
@@ -56,19 +56,3 @@ form p {
   text-decoration: none;
 }
 
-/* フラッシュメッセージ */
-.msg {
-  border-radius: 15px;
-  width: 250px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.msg.success i {
-  margin: 10px;
-}
-.success {
-  color: 	#3C763D;
-  background-color: #DFF0D8;
-}

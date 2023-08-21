@@ -2,28 +2,27 @@
 
 @section('link')
   <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/flashMessage.css') }}" rel="stylesheet">
 @endsection
 @section('title','ログイン')
 @section('content')
 
   {{-- フラッシュメッセージ --}}
-  {{-- @if (session('success'))
-    <div class="msg-success">
-      {{ session('success') }}
+  @if (session('success'))
+    <div class="flash-message success">
+      <i class="fa-solid fa-check"></i>
+      <p>{{ session('success') }}</p>
     </div>
-  @endif --}}
-  <div class="msg success">
-    <i class="fa-solid fa-check"></i>
-    <p>登録が完了しました</p>
-  </div>
+  @endif
+
 
   <div id="form">
-    <p class="Login-Logo">Login</p>
-    <form action="diary" method="POST">
+    <p class="login-log">Login</p>
+    <form action="{{ route('user.loggedIn') }}" method="POST">
       @csrf
       <div class="id">
         <p class="label-id">ログインID</p>
-        <input class="text-id" type="text" name="id">
+        <input class="text-id" type="text" name="id" placeholder="user@example.com">
       </div>
 
       <div class="pass">
@@ -40,4 +39,23 @@
   <div class="div-create">
     <a class="a-create" href="newcreate">新規作成</a>
   </div>
+@endsection
+
+@section('javascript')
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // フラッシュメッセージを取得
+        const flashMessage = document.querySelector(".flash-message");
+
+        // クラスを後付け
+        setTimeout(function() {
+          flashMessage.classList.add("fadeOut");
+        }, 4000);
+
+        // アニメーションが完了したらイベント開始
+        flashMessage.addEventListener("animationend", function() {
+          flashMessage.remove();
+        });
+    });
+  </script>  
 @endsection
