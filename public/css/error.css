@@ -1,0 +1,13 @@
+/* エラー */
+.alert {
+  border: 1px solid #f00;
+  background-color: #fee;
+  color: #f00;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 15px;
+}
+
+.alert li {
+  margin-left: 20px;
+}

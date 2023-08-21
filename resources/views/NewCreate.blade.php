@@ -2,6 +2,7 @@
 
 @section('link')
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/error.css') }}" rel="stylesheet">
 @endsection
 @section('title','新規作成')
 @section('content')

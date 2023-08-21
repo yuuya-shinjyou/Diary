@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Http\Requests\Admin\LoginRequest;
 
 class LoginController extends Controller
 {
@@ -12,15 +14,26 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function loggedIn(Request $request)
+    public function loggedIn(LoginRequest $request)
     {
-        // データベースと比較
-        $Items = User::all();
-        dd($Items);
-        // dd($request->id,$request->pass);
+        // 送信されたデータ
+        $InputLoginData = $request->validated();
+        $email = $InputLoginData["id"];
+        $password = $InputLoginData["password"];
 
-        // セッションを渡すためにリダイレクトでアクセス
-        return redirect('diary')->with('success','ログインに成功しました');
+        // データベースから抜き出し
+        $Items = User::where("email",$email)->first();
+
+        if(empty($Items)){
+            return redirect('login')->with('question','登録がないようです');
+        }
+        
+        if($Items["email"] === $email && Hash::check($password,$Items["password"])) {
+            // セッションを渡すためにリダイレクトでアクセス
+            return redirect('diary')->with('success','ログインに成功しました');
+        } else {
+            return redirect('login')->with('failed','ログインに失敗しました');
+        }
     }
 
     public function loginFailed()

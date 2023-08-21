@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Admin\StoreBlogRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
@@ -54,8 +55,8 @@ class UserController extends Controller
             $users = new User($validatedData);
             $users->nickname = $request->nickname;
             $users->avatar = $imagePath;
+            $users->password = Hash::make($request->password);
 
-            //重複があった場合追加せずにエラーメッセージを送る処理を追加する
             $users->save();
 
             return redirect('login')->with("success","登録が完了しました");
@@ -73,7 +74,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(blog $blog)
+    public function show()
     {
         //
     }
@@ -81,7 +82,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(blog $blog)
+    public function edit()
     {
         //
     }
@@ -89,7 +90,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, blog $blog)
+    public function update()
     {
         //
     }
@@ -97,7 +98,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(blog $blog)
+    public function destroy()
     {
         //
     }

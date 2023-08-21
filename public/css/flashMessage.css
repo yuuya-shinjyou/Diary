@@ -19,10 +19,24 @@
   margin: 10px;
 
 }
+
+/* 成功 */
 .success {
   color: 	#3C763D;
   background-color: #DFF0D8;
   border: 1px solid #ddd;
+}
+/* 失敗 */
+.failed {
+  color: #A94442;
+  background-color: #F2DEDE;
+  border: 1px solid #EBCCD1;
+}
+/* questionマーク */
+.question {
+  color: #8A6D3B;
+  background-color: #FCF8E3;
+  border: 1px, solid #FAEBCC;
 }
 
 /* フラッシュメッセージ フェードアウト */

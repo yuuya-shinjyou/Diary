@@ -3,6 +3,7 @@
 @section('link')
   <link href="{{ asset('css/login.css') }}" rel="stylesheet">
   <link href="{{ asset('css/flashMessage.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/error.css') }}" rel="stylesheet">
 @endsection
 @section('title','ログイン')
 @section('content')
@@ -13,10 +14,29 @@
       <i class="fa-solid fa-check"></i>
       <p>{{ session('success') }}</p>
     </div>
+  @elseif (session('failed'))
+    <div class="flash-message failed">
+      <i class="fa-solid fa-xmark"></i>
+      <p>{{ session('failed') }}</p>
+    </div>
+  @elseif (session('question'))
+    <div class="flash-message question">
+      <i class="fa-solid fa-question"></i>
+      <p>{{ session('question') }}</p>
+    </div>
   @endif
 
-
   <div id="form">
+    @if ($errors->any())
+      <div class="alert">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
     <p class="login-log">Login</p>
     <form action="{{ route('user.loggedIn') }}" method="POST">
       @csrf
@@ -27,7 +47,7 @@
 
       <div class="pass">
         <p class="label-pass">Password</p>
-        <input class="text-pass" type="password" name="pass">
+        <input class="text-pass" type="password" name="password">
       </div>
 
       <div class="submit">
