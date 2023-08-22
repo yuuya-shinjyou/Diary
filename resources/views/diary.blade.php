@@ -31,6 +31,9 @@
   </header>
 
   <main>
+
+    <p>{{ session('user_data')['id'] }}</p>
+    <p>{{ session('user_data')['nickname'] }}</p>
 {{-- 反応しない --}}
     {{-- フラッシュメッセージ --}}
     @if (session('success'))

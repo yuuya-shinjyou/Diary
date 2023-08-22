@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Requests\Admin\LoginRequest;
 
-class LoginController extends Controller
+class LoginController extends BaseController
 {
     public function show()
     {
@@ -16,21 +16,32 @@ class LoginController extends Controller
 
     public function loggedIn(LoginRequest $request)
     {
+        
         // 送信されたデータ
         $InputLoginData = $request->validated();
-        $email = $InputLoginData["id"];
-        $password = $InputLoginData["password"];
+        $InputMail = $InputLoginData["id"];
+        $InputPassword = $InputLoginData["password"];
 
         // データベースから抜き出し
-        $Items = User::where("email",$email)->first();
+        $Items = User::where("email",$InputMail)->first();
 
         if(empty($Items)){
             return redirect('login')->with('question','登録がないようです');
         }
         
-        if($Items["email"] === $email && Hash::check($password,$Items["password"])) {
-            // セッションを渡すためにリダイレクトでアクセス
-            return redirect('diary')->with('success','ログインに成功しました');
+        $UserName = $Items["nickname"]; 
+        $UserMail = $Items["email"];
+        $UserPass = $Items["password"];
+
+        if($UserMail === $InputMail && Hash::check($InputPassword,$UserPass)) {
+
+            // セッション格納
+            $userData = ['id' => $Items['id'],'nickname' => $Items['nickname']];
+            $this->setUserDataInSession($userData);
+
+            // フラッシュメッセージを渡すためにリダイレクトでアクセス
+            return redirect('diary')->with('success','ようこそ' . $UserName . 'さん');
+
         } else {
             return redirect('login')->with('failed','ログインに失敗しました');
         }

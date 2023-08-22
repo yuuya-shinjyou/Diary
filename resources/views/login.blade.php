@@ -9,22 +9,10 @@
 @section('content')
 
   {{-- フラッシュメッセージ --}}
-  @if (session('success'))
-    <div class="flash-message success">
-      <i class="fa-solid fa-check"></i>
-      <p>{{ session('success') }}</p>
-    </div>
-  @elseif (session('failed'))
-    <div class="flash-message failed">
-      <i class="fa-solid fa-xmark"></i>
-      <p>{{ session('failed') }}</p>
-    </div>
-  @elseif (session('question'))
-    <div class="flash-message question">
-      <i class="fa-solid fa-question"></i>
-      <p>{{ session('question') }}</p>
-    </div>
-  @endif
+  @flash(success)
+  @flash(failed)
+  @flash(question)
+
 
   <div id="form">
     @if ($errors->any())
