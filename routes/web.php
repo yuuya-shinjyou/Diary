@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostScreenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login',[LoginController::class, 'show']);
-Route::post('diary',[LoginController::class, 'loggedIn'])->name('user.loggedIn');
-Route::get('newcreate',[UserController::class, 'create']);
-Route::get('diary',fn()=>view("diary"));
+Route::get('login', [LoginController::class, 'show'])->name('login');
+Route::post('diary', [LoginController::class, 'loggedIn'])->name('user.loggedIn');
+
+Route::middleware(['checkAccess'])->group(function () {
+    Route::get('newcreate', [UserController::class, 'create']);
+    Route::get('diary',fn()=>view("diary"));
+    Route::get('postScreen', [PostScreenController::class, 'index']);    
+});
+
 
 // model
 Route::get('admin/blog/show',[BlogController::class,'index']);

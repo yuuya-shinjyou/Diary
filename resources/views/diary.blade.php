@@ -26,23 +26,16 @@
       <a href="#">更新</a>
     </div>
     <div class="right-align">
-      <p class="header-account">アカウント名</p>
+      <p class="header-account">{{ Auth::user()->nickname }}</p>
     </div>
   </header>
 
+  {{-- フラッシュメッセージ --}}
+  @flash(success)
+  @flash(failed)
+  @flash(question)
+
   <main>
-
-    <p>{{ session('user_data')['id'] }}</p>
-    <p>{{ session('user_data')['nickname'] }}</p>
-{{-- 反応しない --}}
-    {{-- フラッシュメッセージ --}}
-    @if (session('success'))
-      <div class="flash-message success">
-        <i class="fa-solid fa-check"></i>
-        <p>{{ session('success') }}</p>
-      </div>
-    @endif
-
     <div class="main-container">
        @for($i=1; $i<=5; $i++) {{-- データの分だけ表示 --}}
         <div class="content-item">
@@ -73,6 +66,11 @@
     </div>
   </main>
 
+  {{-- 書き込みボタン --}}
+  <a href="postScreen" class="writeButton">
+    <i class="fa-regular fa-pen-to-square"></i>
+  </a>
+
   <footer>
     <a href="#">お問い合わせはこちら</a>
   </footer>
@@ -81,6 +79,8 @@
 @section('javascript')
   <script>
     document.addEventListener("DOMContentLoaded", function() {
+
+      if(document.querySelector(".flash-message")){
         // フラッシュメッセージを取得
         const flashMessage = document.querySelector(".flash-message");
 
@@ -93,6 +93,8 @@
         flashMessage.addEventListener("animationend", function() {
           flashMessage.remove();
         });
+      }
+
     });
   </script>  
 @endsection

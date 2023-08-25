@@ -68,6 +68,30 @@ main {
   margin: 5px;
 }
 
+/* 新規投稿ボタン */
+.writeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 30px;
+  background-color: gold;
+
+  /* 配置 */
+  position: fixed;
+  bottom: 20px;
+  right: 50px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  
+  /* aタグ */
+  color: black;
+}
+.writeButton i {
+  font-size: 35px;
+}
+
 /* フッター回り */
 footer {
   text-align: center;

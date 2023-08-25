@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Http\Requests\Admin\LoginRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends BaseController
 {
@@ -16,7 +17,17 @@ class LoginController extends BaseController
 
     public function loggedIn(LoginRequest $request)
     {
-        
+        if(Auth::attempt(['email' => $request->id, 'password' => $request->password])){
+            $user = User::where('email', $request->id)->first();
+            return redirect()->route('user.loggedIn',['user', $user])->with('success', 'ログインに成功しました');
+        } else {
+            if (User::where('email', $request->id)->first()) {
+                return back()->with('failed', 'ログインに失敗しました');
+            } else {
+                return back()->with('question', '登録がないようです');
+            }
+        }
+
         // 送信されたデータ
         $InputLoginData = $request->validated();
         $InputMail = $InputLoginData["id"];
