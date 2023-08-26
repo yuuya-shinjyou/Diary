@@ -13,6 +13,13 @@
   @flash(failed)
   @flash(question)
 
+  @if (session('timeOut'))
+      <div class="alert timeout">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <p>長時間操作がなかった為タイムアウトしました</p>
+      </div>
+  @endif
+
 
   <div id="form">
     @if ($errors->any())

@@ -12,7 +12,10 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->integer('AccountNum');
-            $table->string('avatar');
+            $table->string('title');
+            $table->enum('weather',['sun','cloudy','rain']);
+            $table->text('body');
+            $table->binary('avatar')->nullable();
             $table->boolean('publishing')->default(false);
             $table->timestamps();
         });

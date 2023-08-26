@@ -100,9 +100,14 @@ return [
     */
 
     'custom' => [
+        // 記述見本
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        // カスタムはここに記述
+        'date' => [
+            'today' => ':attributeは本日である必要があります'
+        ]
     ],
 
     /*
@@ -116,13 +121,18 @@ return [
     |
     */
 
+    // フォームから受け取るnameの変換
     'attributes' => [
       'email' => 'メールアドレス',
       'password' => 'パスワード',
       'todohuken' => '都道府県',
       'nickname' => 'ニックネーム',
       'gender' => '性別',
-      'publishing' => '公開設定'
+      'publishing' => '公開設定',
+      'weather' => '天気',
+      'date' => '日付',
+      'title' => 'タイトル',
+      'body' => '本文'
     ],
 
 ];

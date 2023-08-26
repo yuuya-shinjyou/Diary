@@ -11,3 +11,21 @@
 .alert li {
   margin-left: 20px;
 }
+
+/* タイムアウト */
+.timeout {
+  width: fit-content;
+  margin: auto;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  padding: auto;
+}
+.timeout i {
+  padding: 10px 0px 10px 10px;
+  font-size: 23px;
+}
+.timeout p {
+  padding:10px;
+}
+

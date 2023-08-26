@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('nickname',50);
             $table->enum('gender',['male','female','other']);
-            $table->string('avatar')->nullable();
+            $table->binary('avatar')->nullable();
             $table->string('todohuken', 100)->nullable()->default('text');
             $table->boolean('publishing')->default(false);
             $table->string('email')->unique();

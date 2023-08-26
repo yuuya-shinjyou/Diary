@@ -2,8 +2,7 @@
 
 @section('link')
   <link rel="stylesheet" href="{{ asset('css/postScreen.css') }}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="stylesheet" href="{{ asset('css/error.css') }}">
 @endsection
 
 @section('title','投稿画面')
@@ -12,41 +11,48 @@
   <p>Your ID: {{ Auth::user()->id }}</p> 
   <p>Your Nickname:{{ Auth::user()->nickname }}</p>
 
+  @if ($errors->any())
+    <div class="alert">
+      <ul>
+        @foreach ($errors->all() as $error)  
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+
   <div class="Container">
-    <form action="#" method="POST">
+    <form action="{{ route('posted') }}" method="POST">
       @csrf
-      <div class="calendar">
-        <i class="fa-regular fa-calendar-days" id="flatpickr"></i>
+      <div class="date">
         <p>{{ \Carbon\Carbon::today()->isoformat("M月D日 (ddd)") }}</p>
       </div>
-      <div class="formcontainer">
-        <div class="title">
-          <label for="title">投稿内容</label>
-          <input type="text" id="title" name="title">  
-        </div>
-        
-        <div class="wether">
-          <input class="input-wether" type="radio" id="sun" name="wether" value="sun" {{ old('wether') === 'sun' ? 'checked':'' }}>
-          <label for="sun">晴れ</label>
-          <input class="input-wether" type="radio" id="cloudy" name="wether" value="cloudy" {{ old('wether') === 'cloudy' ? 'checked':'' }}>
-          <label for="cloudy">曇り</label>
-          <input class="input-wether" type="radio" id="rain" name="wether" value="rain" {{ old('wether') === 'rain' ? 'checked':'' }}>
-          <label for="rain">雨</label>
-        </div> 
 
-        <div class="body">
-          <textarea name="body" id="body" cols="30" rows="10">
-            
-          </textarea>
-        </div>
+      <div class="weather">
+        <input class="input-weather" type="radio" id="sun" name="weather" value="sun" {{ old('weather') === 'sun' ? 'checked':'' }}>
+        <label for="sun">晴れ</label>
+        <input class="input-weather" type="radio" id="cloudy" name="weather" value="cloudy" {{ old('weather') === 'cloudy' ? 'checked':'' }}>
+        <label for="cloudy">曇り</label>
+        <input class="input-weather" type="radio" id="rain" name="weather" value="rain" {{ old('weather') === 'rain' ? 'checked':'' }}>
+        <label for="rain">雨</label>
+      </div> 
+
+      <div class="title">
+        <label for="title">タイトル</label>
+        <input type="text" id="title" name="title">  
       </div>
-      
+
+      <div class="body">
+        <label for="body">投稿内容</label>
+        <textarea name="body" id="body" cols="30" rows="10"></textarea>
+      </div>
+
+      <button type="submit">投稿</button>
+
     </form>
   </div>
 
 @endsection
 @section('javascript')
-  <script>
-    flatpickr('#flatpickr');
-  </script>
+
 @endsection

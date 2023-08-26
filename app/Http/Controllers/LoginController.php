@@ -57,12 +57,4 @@ class LoginController extends BaseController
             return redirect('login')->with('failed','ログインに失敗しました');
         }
     }
-
-    public function loginFailed()
-    {
-        // データベースと入力内容を照合
-        
-        // フラッシュメッセージにfailedを送信
-        return view('login')->with('failed','ログインに失敗しました');
-    }
 }

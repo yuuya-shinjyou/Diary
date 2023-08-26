@@ -26,20 +26,21 @@ class StoreBlogRequest extends FormRequest
         return [
             'nickname' => 'required|string',
             'gender' =>'required|string|in:male,female,other',
+            'todohuken' => 'required|string|in:' . implode(",",$prefectures),
+            'publishing' => 'required|string|in:private,public',
+            'password' => 'required|min:4',
+            
             'avatar' => [
                 'image',
                 'mimes:jpeg,jpg,png',
                 'max:2000',
                 'dimensions:min_width=300,min_height=300,max_width=1200,max_height=1200',
-            ],
-            'todohuken' => 'required|string|in:' . implode(",",$prefectures),
-            'publishing' => 'required|string|in:private,public',
+            ], 
             'email' => [
                 'required',
                 'email',
                 Rule::unique('users', 'email'),
             ],
-            'password' => 'required|min:4',
         ];
     }
 }

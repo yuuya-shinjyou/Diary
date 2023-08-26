@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\PostDiaryRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\blog;
+
 
 class PostScreenController extends BaseController
 {
@@ -25,9 +29,23 @@ class PostScreenController extends BaseController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostDiaryRequest $request)
     {
-        //
+        if(!Auth::check()){
+            return redirect('login')->with('timeOut', 'タイムアウトしました');
+        }
+
+        $validatedData = $request->validated();
+
+        $blog = new blog();
+        $blog->AccountNum = Auth::user()->id;
+        $blog->title = $validatedData['title'];
+        $blog->weather = $validatedData['weather'];
+        $blog->body = $validatedData['body'];
+
+        $blog->save();
+
+        return redirect()->route('user.loggedIn')->with('success', '投稿しました');
     }
 
     /**

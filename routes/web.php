@@ -23,9 +23,10 @@ Route::get('/', function () {
 
 Route::get('login', [LoginController::class, 'show'])->name('login');
 Route::post('diary', [LoginController::class, 'loggedIn'])->name('user.loggedIn');
+Route::get('newcreate', [UserController::class, 'create']);
+Route::post('newcreate/post', [PostScreenController::class, 'store'])->name('posted');
 
 Route::middleware(['checkAccess'])->group(function () {
-    Route::get('newcreate', [UserController::class, 'create']);
     Route::get('diary',fn()=>view("diary"));
     Route::get('postScreen', [PostScreenController::class, 'index']);    
 });
