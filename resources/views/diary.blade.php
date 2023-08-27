@@ -37,18 +37,23 @@
 
   <main>
     <div class="main-container">
-       @for($i=1; $i<=5; $i++) {{-- データの分だけ表示 --}}
+      @foreach ($blogs as $blog)
         <div class="content-item">
           <div class="item-header">
-            <div class="item-date">8月8日（火）</div>
+            <div class="item-date">{{ $blog->title }}</div>
             <div class="right-align">
-              <p class="item-weather">晴れ</p>
+              <p class="item-weather">{{ $blog->created_at->format('n月j日 H時i分') }}</p>
+              <p class="item-weather">{{ $blog->weather }}</p>
+              <div class="userName">
+                <p>{{ $user->nickname }}</p>
+              </div>
             </div>
           </div>
-          <p>日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容日記の書き込み内容</p>
+          <p>{!! nl2br($blog->body) !!}</p>
         </div>
-      @endfor
+      @endforeach
     </div>
+
     <div class="side-container">
       <div class="content-item">
         <div class="item-header">

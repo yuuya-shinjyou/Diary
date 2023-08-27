@@ -21,7 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', [LoginController::class, 'show'])->name('login');
+Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::get('test', [PostScreenController::class, 'show'])->name('posted.show');
 Route::post('diary', [LoginController::class, 'loggedIn'])->name('user.loggedIn');
 Route::get('newcreate', [UserController::class, 'create']);
 Route::post('newcreate/post', [PostScreenController::class, 'store'])->name('posted');

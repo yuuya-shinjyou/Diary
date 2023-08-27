@@ -6,6 +6,7 @@ use App\Http\Requests\Admin\PostDiaryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\blog;
+use App\Models\User;
 
 
 class PostScreenController extends BaseController
@@ -45,15 +46,21 @@ class PostScreenController extends BaseController
 
         $blog->save();
 
-        return redirect()->route('user.loggedIn')->with('success', '投稿しました');
+        return redirect()->route('posted.show');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        if(Auth::check()){
+            $user = User::where('id', Auth()->user()->id)->first();
+            $blogs = Blog::orderBy('blogs.created_at', 'desc')->get();
+            return view('diary', ['user' => $user, 'blogs' => $blogs])->with('success', 'ログインに成功しました');
+        } else {
+            return redirect()->route('posted.show')->with('timeOut', 'タイムアウトしました');
+        }
     }
 
     /**
