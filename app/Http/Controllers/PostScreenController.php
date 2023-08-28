@@ -46,7 +46,7 @@ class PostScreenController extends BaseController
 
         $blog->save();
 
-        return redirect()->route('posted.show');
+        return redirect()->route('diary.index')->with('success', '投稿しました');
     }
 
     /**
@@ -55,9 +55,10 @@ class PostScreenController extends BaseController
     public function show()
     {
         if(Auth::check()){
-            $user = User::where('id', Auth()->user()->id)->first();
-            $blogs = Blog::orderBy('blogs.created_at', 'desc')->get();
-            return view('diary', ['user' => $user, 'blogs' => $blogs])->with('success', 'ログインに成功しました');
+            $blogs = Blog::join('users', 'blogs.AccountNum', '=', 'users.id')
+                            ->orderBy('blogs.created_at', 'desc')
+                            ->get();
+            return view('diary', ['blogs' => $blogs])->with('success', 'ログインに成功しました');
         } else {
             return redirect()->route('posted.show')->with('timeOut', 'タイムアウトしました');
         }

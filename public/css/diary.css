@@ -18,6 +18,11 @@ header {
 }
 .right-align {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.right-align a {
+  color: black;
 }
 
 /* コンテンツ回り */

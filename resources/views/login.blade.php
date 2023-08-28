@@ -33,7 +33,7 @@
     @endif
 
     <p class="login-log">Login</p>
-    <form action="{{ route('user.loggedIn') }}" method="POST">
+    <form action="{{ route('login.loggedIn') }}" method="POST">
       @csrf
       <div class="id">
         <p class="label-id">ログインID</p>

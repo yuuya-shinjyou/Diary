@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostScreenController;
+use App\Http\Controllers\DiaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +22,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('diary', [DiaryController::class, 'index'])->name('diary.index');
 Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::get('test', [PostScreenController::class, 'show'])->name('posted.show');
-Route::post('diary', [LoginController::class, 'loggedIn'])->name('user.loggedIn');
+Route::post('diary/logged', [LoginController::class, 'loggedIn'])->name('login.loggedIn');
+Route::get('diary/show', [PostScreenController::class, 'show'])->name('posted.show');
 Route::get('newcreate', [UserController::class, 'create']);
 Route::post('newcreate/post', [PostScreenController::class, 'store'])->name('posted');
+Route::get('diary/logOut', [DiaryController::class, 'logOut'])->name('logOut');
 
 Route::middleware(['checkAccess'])->group(function () {
-    Route::get('diary',fn()=>view("diary"));
+    Route::get('diary', [DiaryController::class, 'index'])->name('diary.index');
     Route::get('postScreen', [PostScreenController::class, 'index']);    
 });
 

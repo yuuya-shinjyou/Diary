@@ -27,6 +27,9 @@
     </div>
     <div class="right-align">
       <p class="header-account">{{ Auth::user()->nickname }}</p>
+      <a href="{{ route('logOut') }}">
+        <i class="fa-solid fa-arrow-right-from-bracket fa-2x"></i>
+      </a>
     </div>
   </header>
 
@@ -45,7 +48,7 @@
               <p class="item-weather">{{ $blog->created_at->format('n月j日 H時i分') }}</p>
               <p class="item-weather">{{ $blog->weather }}</p>
               <div class="userName">
-                <p>{{ $user->nickname }}</p>
+                <p>{{ $blog->nickname }}</p>
               </div>
             </div>
           </div>
