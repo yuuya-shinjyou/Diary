@@ -15,17 +15,6 @@ class LoginController extends BaseController
         return view('login');
     }
 
-    public function show()
-    {
-        // if(Auth::check()){
-        //     $user = User::where('email', Auth()->user()->id)->first();
-        //     $blogs = Blog::orderBy('blogs.created_at', 'desc');
-        //     return view('diary', ['user' => $user, 'blogs' => $blogs]);
-        // } else {
-        //     return redirect()->route('login')->with('timeOut', 'タイムアウトしました');
-        // }
-    }
-
     public function loggedIn(LoginRequest $request)
     {
         // 投稿後のリダイレクトは別で処理する必要あり。

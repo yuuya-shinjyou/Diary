@@ -37,7 +37,7 @@
       @csrf
       <div class="id">
         <p class="label-id">ログインID</p>
-        <input class="text-id" type="text" name="id" placeholder="user@example.com">
+        <input class="text-id" type="text" name="id" placeholder="user@example.com" value="{{ old('id') }}">
       </div>
 
       <div class="pass">

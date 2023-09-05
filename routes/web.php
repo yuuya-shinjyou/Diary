@@ -22,17 +22,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('diary', [DiaryController::class, 'index'])->name('diary.index');
+// ログインコントローラー
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('diary/logged', [LoginController::class, 'loggedIn'])->name('login.loggedIn');
-Route::get('diary/show', [PostScreenController::class, 'show'])->name('posted.show');
+
 Route::get('newcreate', [UserController::class, 'create']);
 Route::post('newcreate/post', [PostScreenController::class, 'store'])->name('posted');
+
+// diaryコントローラー
 Route::get('diary/logOut', [DiaryController::class, 'logOut'])->name('logOut');
+Route::get('diary/timeline', [DiaryController::class, 'index'])->name('diary.timeline');
+Route::get('diary/mylist', [DiaryController::class, 'mylist'])->name('diary.mylist');
+Route::post('diary/search', [DiaryController::class, 'search'])->name('diary.search');
 
 Route::middleware(['checkAccess'])->group(function () {
     Route::get('diary', [DiaryController::class, 'index'])->name('diary.index');
-    Route::get('postScreen', [PostScreenController::class, 'index']);    
+    Route::get('postScreen', [PostScreenController::class, 'index'])->name('postScreen');    
 });
 
 

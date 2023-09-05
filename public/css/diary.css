@@ -1,57 +1,97 @@
-/* ヘッダー回り */
-header {
+/* 日記 */
+/* #262A2F */
+/* ホバー時 */
+/* #31373D */
+/* ホバー時、フォント */
+/* #333333*/
+
+/* スクロールバーはJsで実装
+  webkitは使えるブラウザが限られているが、Jsだとどのブラウザでも可能 */
+
+/* サイドバー */
+.left-panel {
   display: flex;
-  background-color: gray;
-  align-items: center;
-  padding: 0px 50px;
-  border: 1px solid;
+  flex-flow: column;
+  box-sizing: border-box;
+  top: 0px;
+  height: 100%;
+  width: 25%;
+  position: fixed;
+  background-color: #2B3136;
+  color: #858A90;
 }
-.header-a {
-  background-color: #f0f0f0;
+.left-panelTop {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+}
+.left-panelTop .userName {
+  margin: auto auto auto 10px;
+  font-size: 150%;
+}
+.left-panelTop i {
+  font-size: 30px;
+  border: solid 2px;
+  border-radius: 50%;
+  padding: 15px;
   margin: 10px;
-  padding: 10px;
-}
-.header-account {
-  background-color: #f0f0f0;
-  margin: 15px;
-  padding: 10px;
-}
-.right-align {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-}
-.right-align a {
-  color: black;
 }
 
-/* コンテンツ回り */
-main {
-  padding: 0px 50px;
-  background-color: antiquewhite;
-  display: flex;
-  margin: 10px;
-  border: 1px solid;
+/* メニューの中身 */
+.left-panelMenu {
+  flex: 9;
+  height: 100%;
+  overflow: auto;
 }
-.main-container {
-  flex: 7;
-  align-items: center;
-  margin: 5px;
-  border: 1px solid;
+.left-panelMenu a {
+  color: #858A90;
+  text-decoration: none;
+}
+.menuTitle {
+  font-size: 20px;
+  font-weight: 1000;
+  padding: 20px 30px;
+}
+.menuItem {
+  padding: 10px 10px 10px 40px;
+  display: flex;
+}
+.menuItem:hover {
+  background-color: #414952;
+}
+.test a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* メインパネル */
+.right-panel {
+  box-sizing: border-box;
+  margin-left: 25%;
+  padding: 20px 40px;
+  background-color: #1F2326;
+  color: #F6F6F6;
+
 }
 .content-item{
   margin: 15px 10px;
-  border: 1px solid;
-  border-radius: 10px;
+  border-radius: 5px;
+  background-color: #262A2F;
 }
 .item-header {
   display: flex;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #6C757D;
   align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+.item-title {
+  font-size: 25px;
 }
 .item-date {
-  margin: 10px;
-  font-size: 25px;
+  display: flex;
 }
 .item-weather {
   margin-right: 15px;
@@ -60,17 +100,9 @@ main {
   padding: 15px 10px;
 }
 
-/* サイドまわり */
-.side-container {
-  flex: 3;
-  align-items: center;
-  border: 1px solid;
-  margin: 5px;
-}
-.item-hash,
-.item-carender {
-  margin: 5px;
-}
+/* スクロールバー */
+
+
 
 /* 新規投稿ボタン */
 .writeButton {
@@ -97,10 +129,55 @@ main {
 }
 
 /* フッター回り */
-footer {
+.footer {
   text-align: center;
 }
-footer a {
-  display: block;
+.footer a {
   margin: 10px;
+  color: #F6F6F6;
+}
+.footer a:hover {
+  color: #fff;
+}
+
+/* 検索窓 */
+.header-a input[type="text"] {
+  width: auto;
+  height: auto;
+  border: none;
+  border: solid 2px #3879D9;
+  padding: 0px 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  outline: none; /* フォーカス時の枠線を無効 */ 
+
+}
+.header-a button[type='submit'] {
+  border: none;
+  cursor: pointer;
+  background: #3879D9;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+
+/* js */
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+#Modal {
+  position: fixed;
+  display: none;
+  z-index: 2;
+  width: 200px;
+  height: 100px;
+  background-color: #F6F6F6;
+  color: #1F2326;
 }
