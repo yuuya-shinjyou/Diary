@@ -1,13 +1,17 @@
-@extends('layouts.default')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ログイン</title>
 
-@section('link')
   <link href="{{ asset('css/login.css') }}" rel="stylesheet">
   <link href="{{ asset('css/flashMessage.css') }}" rel="stylesheet">
   <link href="{{ asset('css/error.css') }}" rel="stylesheet">
-@endsection
-@section('title','ログイン')
-@section('content')
 
+</head>
+<body>
   {{-- フラッシュメッセージ --}}
   @flash(success)
   @flash(failed)
@@ -54,9 +58,7 @@
   <div class="div-create">
     <a class="a-create" href="newcreate">新規作成</a>
   </div>
-@endsection
-
-@section('javascript')
+  
   <script>
     document.addEventListener("DOMContentLoaded", function() {
         // フラッシュメッセージを取得
@@ -73,4 +75,6 @@
         });
     });
   </script>  
-@endsection
+
+</body>
+</html>

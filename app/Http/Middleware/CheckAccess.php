@@ -18,7 +18,7 @@ class CheckAccess
     {
         if(!Auth::check()){
             $user = Auth::user();
-            return redirect('login');
+            return redirect('login')->with('timeOut', 'タイムアウトしました');
         }
         return $next($request);
     }

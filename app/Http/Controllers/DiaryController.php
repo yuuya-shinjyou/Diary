@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\PostDiaryRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\blog;
 use App\Models\User;
@@ -61,9 +62,23 @@ class DiaryController extends Controller
         }
     }
 
-    public function show()
+    public function post(PostDiaryRequest $request)
     {
+        if(!Auth::check()){
+            return redirect('login')->with('timeOut', 'タイムアウトしました');
+        }
 
+        $validatedData = $request->validated();
+
+        $blog = new blog();
+        $blog->AccountNum = Auth::user()->id;
+        $blog->title = $validatedData['title'];
+        $blog->weather = $validatedData['weather'];
+        $blog->body = $validatedData['body'];
+
+        $blog->save();
+
+        return redirect()->route('diary.index')->with('success', '投稿しました');
     }
 
     public function logOut()
@@ -73,7 +88,3 @@ class DiaryController extends Controller
 
 
 }
-
-//                                 ->when($searchValue !== 'null', function($query) use ($searchValue) {
-//     return $query->where('blogs.body', 'like', '%' . $searchValue['inputSearch'] . '%');
-// })

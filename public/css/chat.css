@@ -1,0 +1,71 @@
+.userIcon {
+  font-size: 20px;
+  margin:10px;
+}
+.userIcon i {
+  border: solid 1px #858A90;
+  border-radius: 50px;
+  padding: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+.messageRight {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 20px;
+}
+.messageLeft {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 20px;
+}
+.messageLeft p, .messageRight p {
+  margin: 0px 5px;
+  display: flex;
+  align-items: end;
+}
+.sender-left{
+  display: flex;
+  flex-direction: column;
+}
+.myBalloon {
+  background-color: rgb(15, 220, 150);
+  border-radius: 15px;
+  color: black;
+  padding: 10px;
+  position: relative;
+}
+.myBalloon::before {
+  position: absolute;
+  top: 3px;
+  right: -8px;
+  content: '';
+
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0px 0px 8px 22px;
+  border-color: transparent transparent transparent rgb(15, 220, 150);
+  border-radius: 50%;
+}
+.otherBalloon {
+  background-color: rgb(90, 99, 96);
+  border-radius: 15px;
+  color: black;
+  padding: 10px;
+  position: relative;
+}
+.otherBalloon::before {
+  position: absolute;
+  top: 3px;
+  left: -8px;
+  content: '';
+
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0px 0px 8px 22px;
+  border-color: transparent transparent transparent rgb(90, 99, 96);
+  border-radius: 50%;
+  scale: -1 1;
+}

@@ -2,7 +2,6 @@
 
 @section('link')
   <link href="{{ asset('css/diary.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/flashMessage.css') }}" rel="stylesheet">
 @endsection
 
 @section('title','日記帳')
@@ -14,144 +13,131 @@
   @flash(failed)
   @flash(question)
 
-  <div class="container">
+@endsection
 
-    <div class="left-panel">
-      <div class="left-panelTop">
-        <i class="fa-solid fa-user"></i>
-        <p class="userName">{{ Auth::user()->nickname }}</p>
-      </div>
+@section('rightPanel')
+  <div class="right-panel">
 
-      <div class="left-panelMenu">
-        <div class="menuTitle">Menu</div>
-
-        <div class="menuItem">
-          <div class="choosing">
-            {{-- <input type="radio" id="myDiary" name="selectMenu"> --}}
+    {{-- js --}}
+    <div id="modal" class="postPanel showFlag">
+      <div class="overlay"></div>
+      
+      <div class="Modal">
+      
+        @if ($errors->any())
+          <div id="alert" class="alert">
+            <ul>
+              @foreach ($errors->all() as $error)  
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
           </div>
-          <div class="test">
-            <label for="myDiary">
-              <a href="{{ route('diary.mylist') }}">
-                <i class="fa-regular fa-comment"></i>
-                自分の日記
-              </a>
-            </label>
-          </div>
-        </div>
+        @endif
+      
+        <div class="Container">
+          <form action="{{ route('diary.post') }}" method="POST">
+            @csrf
 
-        <div class="menuItem">
-          <div class="choosing"></div>
-          {{-- <input type="radio" id="timeLine" name="selectMenu"> --}}
-          <label for="timeLine">
-            <i class="fa-regular fa-comments"></i>
-            <a href="{{ route('diary.timeline') }}">タイムライン</a>
-          </label>
+            <div class="data">
+              <div class="date">
+                <p>{{ \Carbon\Carbon::today()->isoformat("M月D日 (ddd)") }}</p>
+              </div>
+
+              <div id="weather" class="weather">
+                <input class="input-weather" type="radio" id="sun" name="weather" value="sun" {{ old('weather') === 'sun' ? 'checked':'' }}>
+                <label for="sun">
+                  <i class="ai-sun-fill"></i>
+                  <p>晴れ</p>
+                </label>
+
+                <input class="input-weather" type="radio" id="cloudy" name="weather" value="cloudy" {{ old('weather') === 'cloudy' ? 'checked':'' }}>
+                <label for="cloudy">
+                  <i class="fa-solid fa-cloud"></i>
+                  <p>曇り</p>
+                </label>
+
+                <input class="input-weather" type="radio" id="rain" name="weather" value="rain" {{ old('weather') === 'rain' ? 'checked':'' }}>
+                <label for="rain">
+                  <i class="fa-solid fa-umbrella"></i>
+                  <p>雨</p>
+                </label>
+
+              </div>
+
+            </div>
+      
+            <div class="data-title">
+              <label for="title">タイトル：</label>
+              <input class="titleInput" type="text" id="title" name="title" placeholder="タイトル">  
+            </div>
+
+            <div class="data-body">
+              <label for="body">投稿内容：</label>
+              <textarea class="bodyInput" name="body" id="body" cols="40" rows="12" placeholder="本文..."></textarea>  
+            </div>
+
+            <div class="modal-button">
+              <button id="reset" class="buttonReset" type="button">リセット</button>
+              <button class="buttonPost" type="submit">投稿</button>
+            </div>
+      
+          </form>
         </div>
-        <div class="menuItem">
-          <div class="choosing"></div>
-          {{-- <input type="radio" id="option" name="selectMenu"> --}}
-          <label for="option">
-            <i class="fa-solid fa-gear"></i>
-            <a href="#">設定</a>
-          </label>
-        </div>
-        <div class="menuItem">
-          <div class="choosing"></div>
-          {{-- <input type="radio" id="update" name="selectMenu"> --}}
-          <label for="update">
-            <i class="fa-solid fa-rotate-right"></i>
-            <a href="#">更新</a>
-          </label>
-        </div>
-        <div class="menuItem">
-          <div class="choosing"></div>
-          {{-- <input type="radio" id="logout" name="selectMenu"> --}}
-          <label for="logout">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            <a href="{{ route('logOut') }}">ログアウト</a>
-          </label>
-        </div>
-        <h2>Menu</h2>
-        <ul>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-        </ul>
-        <h2>Menu</h2>
-        <ul>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-        </ul>
-  
+      
       </div>
     </div>
-
-    <div class="right-panel">
-
-      {{-- js --}}
-      <div id="overlay"></div>
-      <div id="Modal">
-        <h1>表示</h1>
-        <button id="closeModal" type="button">閉じる</button>
+    
+    {{-- メインパネル --}}
+    <form action="{{ route('diary.search') }}" method="POST">
+      @csrf
+      <div class="menuItem">
+        <input type="text" name="inputSearch" placeholder="検索..." value="{{ isset($search) ? $search:'' }}" maxlength="50">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
       </div>
+    </form>
 
-      <button id="showModal" type="button">表示</button>
-
-      
-      <form action="{{ route('diary.search') }}" method="POST">
-        @csrf
-        <div class="menuItem">
-          <input type="text" name="inputSearch" placeholder="検索..." value="{{ isset($search) ? $search:'' }}" maxlength="50">
-          <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-      </form>
-
-      @foreach ($blogs->groupBy(function($blog) {
-        return \Carbon\Carbon::parse($blog->created_at)->format('n月d日');
-      }) as $formattedDate => $groupedBlogs)
-          <h2>{{ $formattedDate }}</h2>
-      
-          @foreach ($groupedBlogs as $blog)
-              <div class="content-item">
-                  <div class="item-header">
-                      <div class="item-title">{{ $blog->title }}</div>
-                      <div class="item-date">
-                        <p class="item-weather">{{ $blog->created_at->format('H時i分') }}</p>
-                        <p class="item-weather">{{ $blog->weather }}</p>
-                        <div class="userName">
-                            <p>{{ $blog->nickname }}</p>
-                        </div>
+    @foreach ($blogs->groupBy(function($blog) {
+      return \Carbon\Carbon::parse($blog->created_at)->format('n月d日');
+    }) as $formattedDate => $groupedBlogs)
+        <h2>{{ $formattedDate }}</h2>
+    
+        @foreach ($groupedBlogs as $blog)
+            <div class="content-item">
+                <div class="item-header">
+                    <div class="item-title">{{ $blog->title }}</div>
+                    <div class="item-date">
+                      <p class="item-weather">{{ $blog->created_at->format('H時i分') }}</p>
+                      <p class="item-weather">{{ $blog->weather }}</p>
+                      <div class="userName">
+                          <p>{{ $blog->nickname }}</p>
                       </div>
-                  </div>
-                  <p>{!! nl2br($blog->body) !!}</p>
-              </div>
-          @endforeach
-      
-      @endforeach
+                    </div>
+                </div>
+                <p>{!! nl2br($blog->body) !!}</p>
+            </div>
+        @endforeach
+    
+    @endforeach
 
-      <div class="footer">
-        <a href="#">お問い合わせはこちら</a>
-      </div>
-
+    <div class="footer">
+      <a href="#">お問い合わせはこちら</a>
     </div>
 
   </div>
 
   {{-- 書き込みボタン(js) --}}
-  <a href="{{ route('postScreen') }}" class="writeButton">
-    <i class="fa-regular fa-pen-to-square"></i>
-  </a>
-
+  <div id="switching" class="writeButton">
+    <i id="showModal" class="fa-regular fa-pen-to-square"></i>
+    <i id="closeModal" class="fa-solid fa-xmark"></i>
+  </div>
 
 @endsection
 
 @section('javascript')
+  
   <script>
+    // フラッシュメッセージ処理
+
     document.addEventListener("DOMContentLoaded", function() {
 
       if(document.querySelector(".flash-message")){
@@ -171,25 +157,50 @@
 
     });
 
-    const modal = document.getElementById("Modal");
-    const overlay = document.getElementById("overlay");
+    // モーダル表示・非表示 処理
+    const modal = document. getElementById("modal");
+    const switching = document.getElementById("switching");
     const showModal = document.getElementById("showModal");
     const closeModal = document.getElementById("closeModal");
     
-    showModal.addEventListener("click", function () {
-      modal.style.display = "block";
-      overlay.style.display = "block";
+    switching.addEventListener("click", function () {
+      if (modal.classList.contains('showFlag')) {
+        modal.classList.remove("showFlag");
+
+        showModal.style.display = "none";
+        closeModal.style.display = "block";
+
+      } else {
+        modal.classList.add("showFlag");
+
+        showModal.style.display = "block";
+        closeModal.style.display = "none";
+
+      }
     });
 
-    closeModal.addEventListener("click", function () {
-      modal.style.display = "none";
-      overlay.style.display = "none";
-    });
 
-    // overlay.addEventListener("click", function () {
-    //   modal.style.display = "none";
-    //   overlay.style.display = "none";
-    // });
+    // 投稿エラー検出 処理
+    if(document.getElementById("alert") != null){
+      modal.classList.remove("showFlag");
+
+      showModal.style.display = "none";
+      closeModal.style.display = "block";
+    }
+
+    // リセットボタン
+    const reset = document.getElementById("reset");
+    const bodyText = document.getElementById('body');
+    const titleText = document.getElementById('title');
+    const radioButton = document.getElementById('weather').getElementsByTagName('input');
+    
+    reset.addEventListener('click', function() {
+      for (let i = 0; i < radioButton.length; i++) {
+        radioButton[i].checked = false;
+      } 
+      titleText.value = "";
+      bodyText.value = "";
+    });
 
   </script>  
 @endsection

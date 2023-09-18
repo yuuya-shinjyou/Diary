@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostScreenController;
 use App\Http\Controllers\DiaryController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,17 +28,20 @@ Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('diary/logged', [LoginController::class, 'loggedIn'])->name('login.loggedIn');
 
 Route::get('newcreate', [UserController::class, 'create']);
-Route::post('newcreate/post', [PostScreenController::class, 'store'])->name('posted');
 
 // diaryコントローラー
 Route::get('diary/logOut', [DiaryController::class, 'logOut'])->name('logOut');
 Route::get('diary/timeline', [DiaryController::class, 'index'])->name('diary.timeline');
 Route::get('diary/mylist', [DiaryController::class, 'mylist'])->name('diary.mylist');
 Route::post('diary/search', [DiaryController::class, 'search'])->name('diary.search');
+Route::post('diary/post', [DiaryController::class, 'post'])->name('diary.post');
+
 
 Route::middleware(['checkAccess'])->group(function () {
     Route::get('diary', [DiaryController::class, 'index'])->name('diary.index');
     Route::get('postScreen', [PostScreenController::class, 'index'])->name('postScreen');    
+    Route::get('diary/message', [MessageController::class, 'message'])->name('message.message');
+    Route::get('message/chat/{id}', [MessageController::class, 'chat'])->name('message.chat');
 });
 
 

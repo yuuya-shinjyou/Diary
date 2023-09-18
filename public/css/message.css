@@ -1,0 +1,36 @@
+.message-bar {
+  display: flex;
+  margin: 10px 5px;
+  border-radius: 5px;
+  background-color: #262A2F;
+  height: auto;
+  color: #858A90;
+  text-decoration: none;
+}
+.userIcon {
+  display: flex;
+  padding: 5px;
+  margin: 5px 10px 5px 5px;
+  justify-content: center;
+  align-items: center;
+}
+.userIcon i{
+  font-size: 25px;
+  border: solid 1px #858A90;
+  padding: 15px;
+  border-radius: 50px;
+  display: flex;
+  flex-grow: 1;
+}
+.talkData {
+  flex-grow: 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.userName {
+  font-size: 25px;
+}
+.talk {
+  color: #858A90;
+}

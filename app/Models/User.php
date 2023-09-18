@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\blog;
+use App\Models\Message;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(blog::class, 'AccountNum');
     }
+
+    public function message()
+    {
+        return $this->hasMany(Message::class, 'user_id');
+    }
+
+    public function message_user()
+    {
+        return $this->belongsToMany(Room::class, 'user_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

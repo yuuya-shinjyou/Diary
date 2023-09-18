@@ -12,11 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // 中身を削除するとき
+        // \App\Models\Message::truncate();
+        
+        // ダミーデータ生成
+        $this->call(MessagesTableSeeder::class);
     }
 }
