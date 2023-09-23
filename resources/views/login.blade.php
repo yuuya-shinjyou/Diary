@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://kit.fontawesome.com/5ee5f6d7f1.js" crossorigin="anonymous"></script>
   <title>ログイン</title>
 
   <link href="{{ asset('css/login.css') }}" rel="stylesheet">

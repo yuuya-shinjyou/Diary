@@ -41,7 +41,8 @@ Route::middleware(['checkAccess'])->group(function () {
     Route::get('diary', [DiaryController::class, 'index'])->name('diary.index');
     Route::get('postScreen', [PostScreenController::class, 'index'])->name('postScreen');    
     Route::get('diary/message', [MessageController::class, 'message'])->name('message.message');
-    Route::get('message/chat/{id}', [MessageController::class, 'chat'])->name('message.chat');
+    Route::get('message/chat/{roomId}', [MessageController::class, 'chat'])->name('message.chat');
+    Route::post('message/chat/{roomId}/send', [MessageController::class, 'send'])->name('message.send');
 });
 
 

@@ -28,6 +28,11 @@
   display: flex;
   flex-direction: column;
 }
+.sender-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 .myBalloon {
   background-color: rgb(15, 220, 150);
   border-radius: 15px;
@@ -68,4 +73,39 @@
   border-color: transparent transparent transparent rgb(90, 99, 96);
   border-radius: 50%;
   scale: -1 1;
+}
+
+/* 送信枠 */
+.message-container {
+  padding: 10px 20px;
+  background-color: #40414F;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  border: solid 1px #31333B;
+}
+.message-input {
+ width: 100%;
+ background-color: #40414F;
+ color: #fff;
+ border: none;
+}
+.message-input:focus{
+  outline: none;
+}
+.message-send {
+  padding: 5px 7px;
+  border-radius: 5px;
+  background-color: #40414F;
+  border: none;
+  pointer-events: none;
+}
+.possible {
+  background-color: rgb(25, 195, 125);
+  color: #fff;
+  pointer-events: auto;
+}
+.possible:hover {
+  cursor: pointer;
+  background-color: rgb(45, 225, 155);
 }

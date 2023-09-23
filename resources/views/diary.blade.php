@@ -6,16 +6,12 @@
 
 @section('title','日記帳')
 
-@section('content')
+@section('rightPanel')
 
-  {{-- フラッシュメッセージ --}}
   @flash(success)
   @flash(failed)
   @flash(question)
 
-@endsection
-
-@section('rightPanel')
   <div class="right-panel">
 
     {{-- js --}}

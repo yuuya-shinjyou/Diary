@@ -12,34 +12,67 @@ class MessageController extends Controller
 {
     public function message()
     {
-        $messageRooms = Message::join('users', 'users.id', '=', 'messages.user_id')
-                                ->join('rooms', 'rooms.id', '=', 'messages.room_id')
-                                ->where('messages.user_id', Auth::user()->id)
-                                ->select('messages.user_id', 'messages.room_id', 'rooms.room_name', 'messages.talk', 'messages.created_at')
-                                ->orderBy('messages.created_at', 'desc')
-                                ->distinct('messages.room_id')
-                                ->get();
+        $results = DB::table('user_rooms')
+                        ->select('user_rooms.user_id', 'user_rooms.room_id', 'rooms.room_name', 'messages.talk', 'messages.created_at')
+                        ->leftJoin('messages', function ($join) {
+                            $join->on('messages.room_id', '=', 'user_rooms.room_id')
+                                ->on('messages.user_id', '=', 'user_rooms.user_id');
+                        })
+                        ->join('rooms', 'user_rooms.room_id', '=', 'rooms.id')
+                        ->where('user_rooms.user_id', '=', Auth::user()->id)
+                        ->orderBy('messages.created_at', 'DESC')
+                        ->get();
 
-        $messages = $messageRooms->groupBy('room_id')->toArray();
+        // room_idごとに初めのメッセージを取得したい
+        $talkRooms = [];
+        foreach ($results->groupBy('room_id') as $room) {
+            // 各部屋の最初のメッセージを取得
+            $firstMessage = $room->first();
         
-        $indRoom = [];
-        foreach($messages as $m){
-            $indRoom[] = $m[0];
-        } 
+            // talkRoomオブジェクトを作成し、配列に追加
+            $talkRoom = (object) [
+                'room_id' => $firstMessage->room_id,
+                'room_name' => $firstMessage->room_name,
+                'talk' => $firstMessage->talk,
+                'created_at' => $firstMessage->created_at,
+            ];
         
-        return view("message", ['indRoom' => $indRoom]);
+            $talkRooms[] = $talkRoom;
+        }
+
+        return view("message", ['talkRoom' => $talkRooms]);
     }
 
-    public function chat($id)
+    public function chat($roomId)
     {
-        $messages = Message::join('rooms', 'rooms.id', '=', 'messages.room_id')
-                            ->join('users', 'users.id', '=', 'messages.user_id')
-                            ->where('messages.room_id', $id)
-                            ->orderBy('messages.created_at', 'desc')
-                            ->get();
+        $messages = DB::table('user_rooms')
+                        ->select()
+                        ->leftJoin('messages', function($join) {
+                            $join->on('user_rooms.room_id', '=', 'messages.room_id')
+                                ->on('user_rooms.user_id', '=', 'messages.user_id');
+                        })
+                        ->join('users', 'users.id', '=', 'user_rooms.user_id')
+                        ->where('user_rooms.room_id', '=', $roomId)
+                        ->orderBy('messages.created_at', 'asc')
+                        ->get();
 
-        // dd($messages)
+        $messages = $messages->filter(function ($message) {
+            return $message->talk !== null;
+        });
+        // dd($messages);
 
-        return view('chatRoom', ['messages' => $messages]);
+        return view('chatRoom', ['messages' => $messages, 'roomId' => $roomId]);
+    }
+
+    public function send(Request $request, $roomId)
+    {
+        $message = new Message;
+        $message->user_id = Auth::user()->id;
+        $message->room_id = $roomId;
+        $message->talk = $request['messageText'];
+
+        $message->save();
+
+        return redirect()->route('message.chat', ['roomId' => $roomId]);
     }
 }

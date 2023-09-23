@@ -36,5 +36,30 @@
         
     @endforeach
 
+    <form action="{{ route('message.send', ['roomId' => $roomId]) }}" method="POST">
+      @csrf
+      <div class="message-container">
+        <input id="inputText" class="message-input" name="messageText" type="text" placeholder="メッセージを入力" autocomplete="off">
+        <button id="sendIcon" class="message-send" type="submit">
+          <span class="fa-regular fa-paper-plane"></span>
+        </button>
+      </div>
+    </form>
+
   </div>
+
+  <script>
+    const sendIcon = document.getElementById("sendIcon");
+    const inputText = document.getElementById('inputText');
+
+    inputText.addEventListener("input", function(){
+      if(inputText.value.length > 0){
+        sendIcon.classList.add('possible');
+      } else {
+        sendIcon.classList.remove('possible');
+      }
+    });
+
+  </script>
+
 @endsection
