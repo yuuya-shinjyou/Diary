@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('link')
-  <link href="{{ asset('css/diary.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/diary.css') }}" rel="stylesheet">  
 @endsection
 
 @section('title','日記帳')

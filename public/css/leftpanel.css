@@ -1,15 +1,16 @@
 /* スクロールバーはJsで実装
   webkitは使えるブラウザが限られているが、Jsだとどのブラウザでも可能 */
-
+.container {
+  display: flex;
+}
 /* サイドバー */
 .left-panel {
   display: flex;
   flex-flow: column;
-  box-sizing: border-box;
-  top: 0px;
-  height: 100%;
-  width: 25%;
-  position: fixed;
+  flex: 1;
+  height: 100vh;
+  position: sticky;
+  top: 0;
   background-color: #2B3136;
   color: #858A90;
 }
@@ -62,22 +63,3 @@
   color: #F6F6F6;
 }
 
-/* メインパネル */
-html {
-  height: 100%;
-}
-body {
-  height: 100%;
-}
-.container {
-  height: 100%;
-}
-.right-panel {
-  box-sizing: border-box;
-  margin-left: 25%;
-  padding: 20px 40px;
-  background-color: #1F2326;
-  color: #F6F6F6;
-  height: auto;
-  min-height: 100%;
-}

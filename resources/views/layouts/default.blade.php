@@ -9,7 +9,7 @@
   
   <link href="{{ asset('css/flashMessage.css') }}" rel="stylesheet">
   <link href="{{ asset('css/error.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/leftPanel.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/leftpanel.css') }}" rel="stylesheet">
   @yield('link')
   <title>@yield('title')</title>
 </head>
@@ -73,24 +73,7 @@
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
             <a href="{{ route('logOut') }}">ログアウト</a>
           </label>
-        </div>
-        <h2>Menu</h2>
-        <ul>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-        </ul>
-        <h2>Menu</h2>
-        <ul>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-          <li>Subject</li>
-        </ul>
-  
+        </div>        
       </div>
     </div>
 

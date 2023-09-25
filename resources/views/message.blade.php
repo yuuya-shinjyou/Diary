@@ -1,7 +1,8 @@
 @extends('layouts.default')
 
 @section('link')
-  <link rel="stylesheet" href="{{ asset('css/message.css') }}">
+  <link href="{{ asset('css/message.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/diary.css') }}" rel="stylesheet">  
 @endsection
 
 @section('title', 'メッセージ')
@@ -12,7 +13,7 @@
     
   @foreach ($talkRoom as $room)
     <a href="{{ route('message.chat', ['roomId' => $room->room_id]) }}" class="message-bar">
-      <p>{{ $room->room_id }}</p>
+      {{-- <p>{{ $room->room_id }}</p> --}}
       <div class="userIcon">
         <i class="fa-solid fa-user"></i>
       </div>
