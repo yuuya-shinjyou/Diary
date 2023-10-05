@@ -64,12 +64,12 @@
       
             <div class="data-title">
               <label for="title">タイトル：</label>
-              <input class="titleInput" type="text" id="title" name="title" placeholder="タイトル">  
+              <input class="titleInput" type="text" id="title" name="title" placeholder="タイトル" value="{{ old('title') }}">  
             </div>
 
             <div class="data-body">
               <label for="body">投稿内容：</label>
-              <textarea class="bodyInput" name="body" id="body" cols="40" rows="12" placeholder="本文..."></textarea>  
+              <textarea class="bodyInput" name="body" id="body" cols="40" rows="12" placeholder="本文...">{{ old('body') }}</textarea>  
             </div>
 
             <div class="modal-button">
@@ -102,11 +102,33 @@
                 <div class="item-header">
                     <div class="item-title">{{ $blog->title }}</div>
                     <div class="item-date">
+
+                      @switch($blog->weather)
+                        @case("sun")
+                          <p class="item-weather"><i class="ai-sun-fill"></i></p>                              
+                          @break
+                        @case("cloudy")
+                          <p class="item-weather"><i class="fa-solid fa-cloud"></i></p>
+                          @break
+                        @case("rain")
+                          <p class="item-weather"><i class="fa-solid fa-umbrella"></i></p>                          
+                          @break
+                        @default
+                        <p class="item-weather"><i class="fa-solid fa-question"></i></p>
+                      @endswitch
+                      
                       <p class="item-weather">{{ $blog->created_at->format('H時i分') }}</p>
-                      <p class="item-weather">{{ $blog->weather }}</p>
-                      <div class="userName">
+
+                      @if (Auth::user()->id === $blog->AccountNum)
+                        <div class="userName">
                           <p>{{ $blog->nickname }}</p>
-                      </div>
+                        </div>
+                      @else
+                        <div class="userName">
+                          <a href="{{ route('message.contact', ['partner' => $blog->AccountNum]) }}">{{ $blog->nickname }}</a>
+                        </div>
+                      @endif
+
                     </div>
                 </div>
                 <p>{!! nl2br($blog->body) !!}</p>

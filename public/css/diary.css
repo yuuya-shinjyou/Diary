@@ -1,5 +1,3 @@
-/* スクロールバーはJsで実装
-  webkitは使えるブラウザが限られているが、Jsだとどのブラウザでも可能 */
 html{
   height: 100%;
 }
@@ -7,8 +5,17 @@ body {
   width: 100%;
   height: 100%;
 }
-.container {
-  height: auto;
+/* スクロールバー */
+/* 落ち着いたらJsで実装要諦 */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #6C757D;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-track {
+  display: none;
 }
 
 /* メインパネル */
@@ -38,6 +45,7 @@ body {
 }
 .item-date {
   display: flex;
+  align-items: center;
 }
 .item-weather {
   margin-right: 15px;
@@ -45,6 +53,11 @@ body {
 .content-item p {
   padding: 15px 10px;
 }
+.userName a {
+  color: #fff;
+  text-decoration: none;
+}
+
 
 /* 新規投稿ボタン */
 .writeButton {
@@ -159,6 +172,19 @@ body {
   outline: solid 2px #C0E0F1;
   border: solid 1px #81C2E3;
 }
+.bodyInput {
+  resize: none;
+}
+.bodyInput::-webkit-scrollbar {
+  width: 5px;
+}
+.bodyInput::-webkit-scrollbar-thumb {
+  background-color: #6C757D;
+  border-radius: 5px;
+}
+.bodyInput::-webkit-scrollbar-track {
+  display: none;
+}
 
 /* Modal ボタン */
 .modal-button {
@@ -177,6 +203,7 @@ body {
   border-bottom: solid 5px rgb(200, 170, 170);
 }
 .buttonPost {
+  height: 48px;
   background-color: rgb(220, 250, 220);
   border-bottom: solid 5px rgb(170, 200, 170);
 } 

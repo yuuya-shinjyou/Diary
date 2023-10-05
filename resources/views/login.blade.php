@@ -62,6 +62,7 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", function() {
+      // 要存在判定組み込み
         // フラッシュメッセージを取得
         const flashMessage = document.querySelector(".flash-message");
 

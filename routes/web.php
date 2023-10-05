@@ -36,6 +36,7 @@ Route::get('diary/mylist', [DiaryController::class, 'mylist'])->name('diary.myli
 Route::post('diary/search', [DiaryController::class, 'search'])->name('diary.search');
 Route::post('diary/post', [DiaryController::class, 'post'])->name('diary.post');
 
+// messageコントローラー
 
 Route::middleware(['checkAccess'])->group(function () {
     Route::get('diary', [DiaryController::class, 'index'])->name('diary.index');
@@ -43,6 +44,8 @@ Route::middleware(['checkAccess'])->group(function () {
     Route::get('diary/message', [MessageController::class, 'message'])->name('message.message');
     Route::get('message/chat/{roomId}', [MessageController::class, 'chat'])->name('message.chat');
     Route::post('message/chat/{roomId}/send', [MessageController::class, 'send'])->name('message.send');
+    Route::get('message/contact/{partner}', [MessageController::class, 'contact'])->name('message.contact'); //パラメーターは不適切。セッションに書き換え
+    Route::post('message/create/groupchat', [MessageController::class, 'createGroupChat'])->name('message.createGroup');
 });
 
 

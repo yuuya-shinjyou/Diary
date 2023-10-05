@@ -7,20 +7,44 @@
   color: #858A90;
   text-decoration: none;
 }
+.createRoom {
+  display: flex;
+  margin: 5px; 
+  padding: 3px 10px;
+  border-radius: 5px;
+  width: fit-content;
+  background-color: #6c996a;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 45px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+.createRoom p {
+  height: 21px;
+}
+.createRoom i {
+  padding: 3px;
+  margin-left: 7px;
+  height: auto;
+}
 .userIcon {
   display: flex;
   padding: 5px;
-  margin: 5px 10px 5px 5px;
-  justify-content: center;
-  align-items: center;
+  margin: 5px 10px;
 }
 .userIcon i{
-  font-size: 25px;
+  width: 20px;
+  height: 20px;
   border: solid 1px #858A90;
-  padding: 15px;
+  padding: 25px;
   border-radius: 50px;
   display: flex;
   flex-grow: 1;
+  justify-content: center;
+  align-items: center;
 }
 .talkData {
   flex-grow: 9;
@@ -33,4 +57,23 @@
 }
 .talk {
   color: #858A90;
+}
+
+/* modal */
+.friendList {
+  overflow-y: scroll;
+  height: auto;
+  max-width: 350px;
+  column-count: 2;
+  display: flex;
+  flex-wrap: wrap;
+}
+.friend {
+  width: calc(50% - 10px);
+  margin: 0px 5px 10px 5px;
+  padding: 5px;
+}
+
+.friend:has(input:checked) {
+  background-color: #dadada;
 }

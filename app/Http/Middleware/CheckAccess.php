@@ -16,10 +16,11 @@ class CheckAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::check()){
-            $user = Auth::user();
+        if (!Auth::check()) {
+            // 認証されていない場合、リダイレクトする
             return redirect('login')->with('timeOut', 'タイムアウトしました');
         }
+        // dd($request);
         return $next($request);
     }
 }

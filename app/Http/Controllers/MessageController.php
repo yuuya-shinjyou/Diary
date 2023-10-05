@@ -5,44 +5,72 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Message;
+use App\Models\Room;
 use App\Models\User;
+use App\Models\User_room;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Http\Requests\Admin\CreateGroupRequest;
 
 class MessageController extends Controller
 {
     public function message()
     {
+        $userRooms = DB::table('user_rooms')
+                        ->where('user_id', '=', Auth::user()->id)
+                        ->get();
+        
         $results = DB::table('user_rooms')
-                        ->select('user_rooms.user_id', 'user_rooms.room_id', 'rooms.room_name', 'messages.talk', 'messages.created_at')
+                        ->select('user_rooms.user_id', 'user_rooms.room_id', 'users.nickname', 'messages.talk', 'rooms.room_name', 'messages.created_at', 'room_class.class')
                         ->leftJoin('messages', function ($join) {
-                            $join->on('messages.room_id', '=', 'user_rooms.room_id');
+                            $join->on('messages.room_id', '=', 'user_rooms.room_id')
+                                ->on('messages.user_id', '=', 'user_rooms.user_id');
                         })
-                        ->join('rooms', 'user_rooms.room_id', '=', 'rooms.id')
-                        ->join('users', 'users.id', '=', 'messages.user_id')
-                        ->where('user_rooms.user_id', '=', Auth::user()->id)
+                        ->join('rooms', 'rooms.id', '=', 'user_rooms.room_id')
+                        ->join('users', 'users.id', '=', 'user_rooms.user_id')
+                        ->join('room_class', 'room_class.room_id', '=', 'user_rooms.room_id')
+                        ->whereIn('user_rooms.room_id', $userRooms->pluck('room_id'))
                         ->orderBy('messages.created_at', 'DESC')
                         ->get();
-                        // dd($results);
 
         // room_idごとに初めのメッセージを取得したい
         $talkRooms = [];
         foreach ($results->groupBy('room_id') as $room) {
             // 各部屋の最初のメッセージを取得
             $firstMessage = $room->first();
-        
-            // talkRoomオブジェクトを作成し、配列に追加
-            $talkRoom = (object) [
-                'room_id' => $firstMessage->room_id,
-                'room_name' => $firstMessage->room_name,
-                'talk' => $firstMessage->talk,
-                'created_at' => $firstMessage->created_at,
-            ];
-        
-            $talkRooms[] = $talkRoom;
+
+            if($firstMessage->class === 2){
+                $talkRoom = (object) [
+                    'room_id' => $firstMessage->room_id,
+                    'room_name' => $firstMessage->room_name,
+                    'talk' => $firstMessage->talk,
+                    'created_at' => $firstMessage->created_at,
+                    'class' => $firstMessage->class,
+                ];
+
+                $talkRooms[] = $talkRoom;
+
+            } else {
+                $indChat = $room->pluck('nickname', 'user_id')->all();
+                unset($indChat[Auth::user()->id]);
+
+                $talkRoom = (object) [
+                    'room_id' => $firstMessage->room_id,
+                    'room_name' => current($indChat),
+                    'talk' => $firstMessage->talk,
+                    'created_at' => $firstMessage->created_at,
+                    'class' => $firstMessage->class,
+                ];
+
+                $talkRooms[] = $talkRoom;
+            }
         }
-// dd($talkRooms);
-        return view("message", ['talkRoom' => $talkRooms]);
+
+        $friends = User::select('id', 'nickname', 'avatar')
+                        ->get();
+
+        // dd($talkRooms);
+        return view("message", ['talkRoom' => $talkRooms, 'friends' => $friends]);
     }
 
     public function chat($roomId)
@@ -58,7 +86,6 @@ class MessageController extends Controller
                         ->orderBy('messages.created_at', 'asc')
                         ->get();
 
-                        // dd($roomId);
         $messages = $messages->filter(function ($message) {
             return $message->talk !== null;
         });
@@ -77,5 +104,61 @@ class MessageController extends Controller
         $message->save();
 
         return redirect()->route('message.chat', ['roomId' => $roomId]);
+    }
+
+    public function contact($partner)
+    {
+        $Rooms = User_room::select('room_id', DB::raw('count(room_id)'))
+                            ->groupBy('room_id')
+                            ->havingRaw('count(room_id) = 2')
+                            ->get();
+
+        $talkRoom_users = User::join('user_rooms', 'user_rooms.user_id', '=', 'users.id')
+                                ->select('user_rooms.room_id', 'user_rooms.user_id')
+                                ->whereIn('user_rooms.room_id', $Rooms->pluck('room_id'))
+                                ->orderby('user_rooms.room_id', 'asc')
+                                ->get();
+
+        // dd($talkRoom_users->groupby('room_id'));
+        foreach ($talkRoom_users->groupBy('room_id') as $room_id => $users) {
+            $user_ids = $users->pluck('user_id')->toArray();
+            if(in_array($partner, $user_ids) && in_array(Auth::user()->id, $user_ids)){
+                $talkRoom = $room_id;
+                break;
+            }
+        }
+
+        if(isset($talkRoom)){
+            // チャットルームに移動
+            return redirect()->route('message.chat', ['roomId' => $talkRoom]);
+        } else {
+            //個人チャットの作成
+
+            // roomsの作成
+            $rooms = new Room;
+            $rooms->room_name = Auth::user()->id . 'と' . $partner . 'の部屋';
+            $rooms->created_at = Carbon::now();
+            $rooms->save();
+
+            // user_roomsの作成
+            $userRoom1 = new User_room;
+            $userRoom1->user_id = Auth::user()->id;
+            $userRoom1->room_id = Room::max('id'); 
+            $userRoom1->created_at = Carbon::now();
+            $userRoom1->save();
+            
+            $userRoom2 = new User_room;
+            $userRoom2->user_id = $partner;
+            $userRoom2->room_id = Room::max('id'); 
+            $userRoom2->created_at = Carbon::now();
+            $userRoom2->save();
+
+            return redirect()->route('message.chat', ['roomId' => Room::max('id')]);
+        }
+    }
+
+    public function createGroupChat(CreateGroupRequest $request)
+    {
+        dd($request);
     }
 }

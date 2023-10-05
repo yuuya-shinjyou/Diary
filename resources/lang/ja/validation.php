@@ -106,8 +106,13 @@ return [
         ],
         // カスタムはここに記述
         'date' => [
-            'today' => ':attributeは本日である必要があります'
-        ]
+            'today' => ':attributeは本日である必要があります',
+        ],
+        'members' => [
+            'min' => [
+                'array' => 'メンバーは:min名以上を選択してください。',
+            ],
+        ],
     ],
 
     /*
@@ -132,7 +137,8 @@ return [
       'weather' => '天気',
       'date' => '日付',
       'title' => 'タイトル',
-      'body' => '本文'
+      'body' => '本文',
+      'members' => 'メンバー'
     ],
 
 ];

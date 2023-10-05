@@ -41,10 +41,10 @@
       </div>
 
       <div class="message-container">
-        <form action="{{ route('message.send', ['roomId' => $roomId]) }}" method="POST">
+        <form action="{{ route('message.send', ['roomId' => $roomId]) }}" method="POST" id="messageForm">
           @csrf
           <div class="input-field">
-            <input id="inputText" class="message-input" name="messageText" type="text" placeholder="メッセージを入力" autocomplete="off">
+            <textarea name="messageText" class="message-input" id="inputText" cols="30" rows="1" placeholder="メッセージを入力" autocomplete="off"></textarea>
             <button id="sendIcon" class="message-send" type="submit">
               <span class="fa-regular fa-paper-plane"></span>
             </button>
@@ -60,8 +60,14 @@
     const sendIcon = document.getElementById("sendIcon");
     const inputText = document.getElementById('inputText');
 
+    inputText.addEventListener('input', setTextareaHeight);
+    function setTextareaHeight(){
+        this.style.height = 'auto';
+        this.style.height = `${this.scrollHeight}px`;
+    }
+
     inputText.addEventListener("input", function(){
-      if(inputText.value.length > 0){
+      if(inputText.value.replace(/\r?\n/g, '').length > 0){
         sendIcon.classList.add('possible');
       } else {
         sendIcon.classList.remove('possible');

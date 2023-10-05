@@ -2,17 +2,17 @@
 .flash-message {
   border-radius: 4px;
   width: auto;
-  height: 50px;
+  /* height: 50px; */
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   /* 配置 */
   position: fixed;
   top: 20px;
   right: 50px;
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000; /* 他の要素より手前に表示 */
 }
 .flash-message i {
