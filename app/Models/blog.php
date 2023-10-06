@@ -16,8 +16,4 @@ class blog extends Model
         'AccountNum',
     ];
 
-    public function user()
-    {
-        // return $this->belongsTo(User::class);
-    }
 }

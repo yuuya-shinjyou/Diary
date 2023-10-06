@@ -11,6 +11,7 @@ use App\Models\User_room;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Http\Requests\Admin\CreateGroupRequest;
+use App\Models\Room_class;
 
 class MessageController extends Controller
 {
@@ -67,9 +68,9 @@ class MessageController extends Controller
         }
 
         $friends = User::select('id', 'nickname', 'avatar')
+                        ->where('id', '<>', Auth::user()->id)
                         ->get();
-
-        // dd($talkRooms);
+        
         return view("message", ['talkRoom' => $talkRooms, 'friends' => $friends]);
     }
 
@@ -159,6 +160,33 @@ class MessageController extends Controller
 
     public function createGroupChat(CreateGroupRequest $request)
     {
-        dd($request);
+        // 部屋を新しく作成
+        $room = new Room;
+        $room->room_name = $request->title;
+        $room->created_at = Carbon::now();
+        $room->save();
+
+        // room_classにデータを追加
+        $room_class = new Room_class;
+        $room_class->room_id = Room::max('id');
+        $room_class->peopleNum = count($request->members);
+        $room_class->class = 2;
+        $room_class->save();
+
+        // 参加メンバーを登録
+        foreach($request->members as $member){
+            $userRoom = new User_room;
+            $userRoom->user_id = $member;
+            $userRoom->room_id = Room::max('id');
+            $userRoom->save();
+        }
+
+        // 自分自身を追加
+        $userRoom = new User_room;
+        $userRoom->user_id = Auth::user()->id;
+        $userRoom->room_id = Room::max('id');
+        $userRoom->save();
+
+        return redirect()->route('message.message')->with('success', 'グループを作成しました');
     }
 }

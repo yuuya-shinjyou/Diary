@@ -86,7 +86,7 @@
     {{-- メインパネル --}}
     <form action="{{ route('diary.search') }}" method="POST">
       @csrf
-      <div class="menuItem">
+      <div class="searchBox">
         <input type="text" name="inputSearch" placeholder="検索..." value="{{ isset($search) ? $search:'' }}" maxlength="50">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
       </div>
@@ -176,7 +176,7 @@
     });
 
     // モーダル表示・非表示 処理
-    const modal = document. getElementById("modal");
+    const modal = document.getElementById("modal");
     const switching = document.getElementById("switching");
     const showModal = document.getElementById("showModal");
     const closeModal = document.getElementById("closeModal");

@@ -16,7 +16,7 @@
 <body>
   <div class="container">
 
-    <div class="left-panel">
+    <div class="left-panel" id="leftPanel">
       <div class="left-panelTop">
         <i class="fa-solid fa-user"></i>
         <p class="userName">{{ Auth::user()->nickname }}</p>
@@ -104,6 +104,11 @@
 
     });
 
+    document.addEventListener('DOMContentLoaded', function(){
+      const leftPanel = document.getElementById('leftPanel');
+      leftPanel.style.height = (window.innerHeight + 30) + "px";
+      console.log(window.innerHeight);
+    });
   </script> 
 
   @yield('javascript')

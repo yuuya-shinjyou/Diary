@@ -18,7 +18,7 @@
             <p>{{ \Carbon\Carbon::parse($message->created_at)->format('G:i'); }}</p>
             <div class="sender-right">
               <p>{{ $message->nickname }}</p>
-              <p class="myBalloon">{{ $message->talk }}</p>
+              <p class="myBalloon">{!! nl2br($message->talk) !!}</p>
             </div>
             <div class="userIcon">
               <i class="fa-solid fa-user"></i>
@@ -31,7 +31,7 @@
             </div>
             <div class="sender-left">
               <p>{{ $message->nickname }}</p>
-              <p class="otherBalloon">{{ $message->talk }}</p>
+              <p class="otherBalloon">{!! nl2br($message->talk) !!}</p>
             </div>
             <p>{{ \Carbon\Carbon::parse($message->created_at)->format('G:i'); }}</p>
           </div>

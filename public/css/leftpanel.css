@@ -8,7 +8,7 @@
   display: flex;
   flex-flow: column;
   flex: 1;
-  height: 100vh;
+  /* height: 100vh; */
   position: sticky;
   top: 0;
   background-color: #2B3136;
@@ -56,6 +56,10 @@
 .menuItem i {
   transition: color 0.3s;
 }
+.menuItem input[type='radio'] {
+  display: none;
+}
+
 .menuItem:hover {
   background-color: #414952;
 }

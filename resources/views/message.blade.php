@@ -9,6 +9,9 @@
 @section('title', 'メッセージ')
 
 @section('rightPanel')
+
+@flash(success)
+
   <div class="right-panel">
 
     <button class="createRoom" id="switching">

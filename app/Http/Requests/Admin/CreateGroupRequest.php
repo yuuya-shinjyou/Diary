@@ -24,7 +24,7 @@ class CreateGroupRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'members' => 'required | array | min:3',
+            'members' => 'required | array | min:2',
             'title' => 'required | string'
         ];
         

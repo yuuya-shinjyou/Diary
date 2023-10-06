@@ -262,3 +262,23 @@ body {
   border-radius: 0px 5px 5px 0px;
   border-left: solid 1px #F1F1F1;
 }
+
+/* 検索ボックス */
+.searchBox {
+  padding: 10px 10px 10px 40px;
+  display: flex;
+  transition: background-color 0.3s, color 0.3s;
+}
+.searchBox a {
+  color: #858A90;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.searchBox i {
+  transition: color 0.3s;
+}
+.searchBox input:focus {
+  outline: solid 2px #C0E0F1;
+  border: solid 1px #81C2E3;
+  border-radius: 3px;
+}
